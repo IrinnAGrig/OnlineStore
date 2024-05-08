@@ -1,0 +1,341 @@
+.edit-buttons {
+    text-align: center;
+    margin-bottom: 10px;
+
+    button {
+        margin-right: 20px;
+    }
+}
+
+.images-display {
+    img {
+        border-radius: 10px;
+        margin: 10px;
+    }
+
+    .row-image {
+        display: flex;
+    }
+
+    .column-1 {
+        float: left;
+        overflow-y: scroll;
+        height: 350px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #d6dee1;
+        border-radius: 20px;
+        border: 6px solid transparent;
+        background-clip: content-box;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #d6dee1;
+        border-radius: 20px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #d6dee1;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    .column-1 img {
+        height: 100px;
+    }
+
+    .column-2 {
+        float: right;
+    }
+
+    .column-2 img {
+        height: 350px;
+    }
+
+
+    .row-image:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+.description {
+    margin-right: 20px;
+
+    .rating {
+        margin-top: 40px;
+    }
+
+    .add-chart-button {
+        background-color: rgba(141, 236, 180, 1);
+        border-radius: 20px;
+        padding: 5px 10px;
+        border: 2px solid black;
+        font-weight: bold;
+    }
+
+    .add-chart-button:hover {
+        border: 1px solid black;
+    }
+
+    .price-chart {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+    }
+
+    .colors-product {
+
+        h5 {
+            color: gray;
+        }
+
+        span {
+            color: black;
+        }
+
+        div {
+            display: inline;
+        }
+
+        div img {
+            margin: 10px;
+            border-radius: 50%;
+        }
+
+        div img.active {
+            border: 1px solid black;
+        }
+    }
+
+    .data-buing-procedure {
+        margin-top: 40px;
+
+        p {
+            padding: 10px;
+            border: 1px solid gray;
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .last {
+            border-bottom: 1px solid gray;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .first {
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+        }
+    }
+}
+
+.image-comments {
+    margin-left: 20px;
+
+    hr {
+        color: black;
+        margin-top: 10px;
+    }
+
+    .ratings {
+        position: relative;
+        vertical-align: middle;
+        display: inline-block;
+        color: #b1b1b1;
+        overflow: hidden;
+
+        .full-stars {
+            position: absolute;
+            left: 0;
+            top: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #fde16d;
+        }
+
+        .empty-stars:before,
+        .full-stars:before {
+            content: "\2605\2605\2605\2605\2605";
+            font-size: 14pt;
+        }
+
+        .empty-stars:before {
+            -webkit-text-stroke: 1px #848484;
+        }
+
+        .full-stars:before {
+            -webkit-text-stroke: 1px orange;
+        }
+
+    }
+
+    .raters {
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 4px;
+        color: gray;
+        font-size: 15px;
+    }
+
+    .comment {
+        display: flex;
+
+        img {
+            align-items: center;
+            background-size: cover;
+
+        }
+
+        .comment-image {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid lightgray;
+            margin-right: 10px
+        }
+    }
+
+    .add-comment {
+        margin-top: 60px;
+        border: 1px solid rgba(141, 236, 180, 1);
+        padding: 15px;
+        border-radius: 10px;
+
+        .add-rating {
+            margin-left: 10px;
+
+            span {
+                cursor: pointer;
+                color: #848484;
+            }
+
+            .checked {
+                color: orange;
+            }
+
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+.add-image {
+    height: 50px;
+    width: 100%;
+    background-color: white;
+    border: 1px dotted black;
+    align-items: center;
+    margin: auto;
+
+    input {
+        margin: auto;
+    }
+
+    #drop-area {
+        border: 2px dashed #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+
+    #drop-area.highlight {
+        background-color: #f0f0f0;
+    }
+
+    #file {
+        display: none;
+    }
+
+    .drag-over {
+        background-color: #f0f0f0;
+    }
+
+    .column-add {
+        text-align: center;
+        overflow-y: scroll;
+        height: 350px;
+        margin: 10px auto;
+    }
+
+    .column-add img {
+        height: 100px;
+        width: 60%;
+        margin-left: 20px;
+        margin: auto;
+    }
+
+    .column-add span {
+        margin-left: 200px;
+    }
+
+    .column-add input {
+        display: block;
+        border: none;
+        border-radius: 100px;
+        margin-right: 20px;
+    }
+
+    .description {
+        select {
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        option {
+            color: white;
+        }
+    }
+}
+
+.trembling-text {
+    font-size: 24px;
+    /* Adjust font size as needed */
+    font-weight: bold;
+    /* Adjust font weight as needed */
+    animation: trembling 1s;
+}
+
+@keyframes trembling {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    20% {
+        transform: translate(-2px, -2px);
+    }
+
+    40% {
+        transform: translate(2px, 2px);
+    }
+
+    60% {
+        transform: translate(-2px, 0);
+    }
+
+    80% {
+        transform: translate(0, -2px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}

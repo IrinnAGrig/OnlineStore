@@ -1,0 +1,182 @@
+<img src="../../assets/images/arrow.png" height="35" (click)="goBack()" style="cursor: pointer;">
+<div class="edit-buttons" *ngIf="userRole == 'admin'">
+    <button class="btn btn-dark" (click)="enterEditMode()" *ngIf="!editMode">Edit</button>
+    <button class="btn btn-outline-dark" (click)="deleteProduct()" *ngIf="!editMode">Delete</button>
+    <button class="btn btn-dark" (click)="editMode = false;" *ngIf="editMode">Cancel</button>
+</div>
+<div class="row" *ngIf="product && product.id != '' && !editMode">
+    <div class="col image-comments">
+        <div class="row-image images-display">
+            <div class="column-1 custom-scrollbar">
+                <div *ngFor="let image of getImages(); let index = index">
+                    <img [src]="image.url" (mouseover)="displayedImage = index">
+                </div>
+            </div>
+            <div class="column-2">
+                <img [src]="getFirstColorUrl(product.imageColors)">
+            </div>
+        </div>
+        <h5 style="margin-top: 380px">Reviews {{product.numberRaters}}</h5>
+        <div style="display: flex; margin-bottom: 30px">
+            <div>
+                <div class="ratings">
+                    <div class="empty-stars"></div>
+                    <div class="full-stars" [style.width]="product.rating*100/5 + '%'"></div>
+                </div>
+            </div>
+            <div>
+                <div class="raters"> {{product.rating}}</div>
+            </div>
+        </div>
+        <div *ngIf="product.comments.length != 0" style="display: block;">
+            <div *ngFor="let comment of displayedComments">
+                <div class="comment">
+                    <div class="comment-image">
+                        <img *ngIf="comment.personImage != ''" src="{{comment.personImage}}" height="50">
+                        <img *ngIf="comment.personImage == ''" src="../../assets/images/users/no-image.jpg" height="50">
+                    </div>
+                    <div>
+                        <h6>{{comment.personName}}</h6>
+                        <div class="ratings">
+                            <div class="empty-stars"></div>
+                            <div class="full-stars" [style.width]="comment.rating*100/5 + '%'"></div>
+                        </div>
+                        <p>{{comment.comment}}</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <button *ngIf="this.currentPositionPage == 0" class="btn"></button>
+                <button *ngIf="this.currentPositionPage - this.itemsPerPage >= 0" (click)="goPreviuos()"
+                    class="btn">Previous</button>
+                <button *ngIf="this.currentPositionPage + this.itemsPerPage < this.comments.length" (click)="goNext()"
+                    class="btn">Next</button>
+
+            </div>
+
+
+        </div>
+        <button type="submit" class="btn btn-dark" style="margin-top: 30px;" (click)="showAddComment()"
+            *ngIf="!showAddingComment && userRole == 'user'">Add Comment</button>
+        <div>
+            <form [formGroup]="commentForm" (ngSubmit)="submitComment()" class="add-comment" *ngIf="showAddingComment">
+                <div style="display: flex;">
+                    <label for="rating">Rating:</label>
+                    <div class="add-rating">
+                        <span class="fa fa-star" [ngClass]="commentForm.get('rating')?.value >= 1 ? 'checked':''"
+                            (click)="setRating(1)"></span>
+                        <span class="fa fa-star" [ngClass]="commentForm.get('rating')?.value >= 2 ? 'checked':''"
+                            (click)="setRating(2)"></span>
+                        <span class="fa fa-star" [ngClass]="commentForm.get('rating')?.value >= 3 ? 'checked':''"
+                            (click)="setRating(3)"></span>
+                        <span class="fa fa-star" [ngClass]="commentForm.get('rating')?.value >= 4 ? 'checked':''"
+                            (click)="setRating(4)"></span>
+                        <span class="fa fa-star" [ngClass]="commentForm.get('rating')?.value >= 5 ? 'checked':''"
+                            (click)="setRating(5)"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Comment</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        formControlName="comment"></textarea>
+                </div>
+                <div class="buttons">
+                    <button type="submit" class="btn btn-dark" (click)="showAddComment()">Cancel</button>
+                    <button type="submit" class="btn btn-dark" [disabled]="commentForm.invalid">Add comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col description">
+        <h5>{{product.description}}</h5>
+        <div class="rating"><span style="color: orange;">&#x2605; </span>{{product.rating}} /
+            {{product.buyers}} purchases
+        </div>
+        <hr>
+        <div class="price-chart">
+            <div>
+                <h3>{{product.price}} MDL</h3>
+            </div>
+            <div style="float: right">
+                <button class="add-chart-button" (click)="addToChart()">Add to chart</button>
+            </div>
+        </div>
+        <hr>
+        <div class="colors-product" [ngClass]="error ? '' : 'trembling-text'">
+            <h5 [ngStyle]="{color: error ? 'gray' : 'orange'}">Colour
+                <span>{{currentSelection.color}}</span>
+            </h5>
+            <div *ngFor="let image of getImages(); let index = index">
+                <img [src]="image.url" (click)="displayedImage = index; selectTypeProduct(image)" height="50"
+                    [ngClass]="image.color == currentSelection.color ? 'active' : ''">
+            </div>
+        </div>
+        <div class="data-buing-procedure">
+            <p class="first">Free delivery</p>
+            <p>Returns & refunds</p>
+            <p>Secure payments</p>
+            <p class="last">Our suport team speaks Englich</p>
+        </div>
+        <div style="margin-top: 20px;">
+            <h5>Description</h5>
+            <h6>{{product.description}}</h6>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="product && product.id == '' || editMode">
+    <form class="row" [formGroup]="productForm" (ngSubmit)="submitProduct()">
+        <div class="col image-comments">
+            <div class="images-display">
+                <div class="column-add custom-scrollbar">
+                    <div *ngFor="let image of images; let index = index" class="row">
+                        <div class="col">
+                            <img [src]="image.url" height="150">
+                        </div>
+                        <div class="col">
+                            <input type="text" [value]="image.color" (change)="changeColor(index, $event)">
+                            <span (click)="deleteImage(image)">Delete</span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="add-image" (drop)="convertToBase64($event)" type="file" accept="image/*">
+                <label for="file" style="cursor: pointer;margin-top: auto;">Drag & drop images here or click to
+                    select</label>
+                <input type="file" id="file" (change)="convertToBase64($event)" accept="image/*" multiple>
+            </div>
+        </div>
+        <div class="col description">
+            <h5>Name: <input type="text" id="title" formControlName="name"></h5>
+            <hr>
+            <select (change)="onCategoryChange()" formControlName="category">
+                <option value="0" disabled selected>Select a category</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{
+                    category.name }}</option>
+            </select>
+
+            <select style="margin-left: 20px;" formControlName="subcategory"
+                *ngIf="productForm && productForm.get('category')?.value != 0">
+                <option value="0" disabled selected>Select a subCategory</option>
+                <option *ngFor="let category of onCategoryChange()" [value]="category.id">{{ category.name }}</option>
+            </select>
+            <hr>
+            <div class="price-chart">
+                <div>
+                    <h5>Price: <input type="number" id="title" formControlName="price">
+                        MDL</h5>
+                </div>
+            </div>
+            <hr>
+            <div style="margin-top: 20px;">
+                <h5>Description: </h5>
+                <h6><textarea id="textarea" formControlName="description" rows="5" cols="50"></textarea></h6>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark mt-4" [disabled]="productForm.invalid">Salveaza</button>
+    </form>
+</div>

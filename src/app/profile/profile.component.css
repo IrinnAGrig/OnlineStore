@@ -1,0 +1,36 @@
+img {
+    align-items: center;
+    background-size: cover;
+}
+
+.profile-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin-left: 23%;
+    margin-right: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid lightgray;
+    margin-right: 10px
+}
+
+#file {
+    display: none;
+}
+
+.profile {
+    button {
+        border: 1px solid gray;
+    }
+
+    button:hover {
+        background-color: lightgray;
+    }
+}
+
+.buttons-change button {
+    margin-left: 20px;
+}

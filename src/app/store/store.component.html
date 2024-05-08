@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class="search-section">
+            <form role="search" class="search" style="display: inline-block;" [formGroup]="searchForm"
+                (ngSubmit)="searchProduct()">
+                <input list="brow" (focus)="showDropdown()" formControlName="search"> <button
+                    type="submit">Search</button>
+                <datalist id="brow">
+                    <option *ngFor="let history of historySearch" [value]="history" (click)="searchProduct(history)">
+                </datalist>
+            </form>
+
+        </div>
+    </div>
+    <div class="col-lg-9" style="display: flex;">
+        <div class="put-price" (mouseup)="showTemplatePrice = true">
+            Price <b #choose_template_button>Filter</b> <img src="../../../assets/images/arrow.png" height="20">
+            <div class="dropdown-price" *ngIf="showTemplatePrice" #choose_template_section>
+                <table>
+                    <tr>
+                        <td>From</td>
+                        <td><input type="number" min="0" placeholder="10.00 MDL" (change)="minVal" [(ngModel)]="minVal">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>To</td>
+                        <td><input type="number" min="0" placeholder="1000.00 MDL" (change)="maxVal"
+                                [(ngModel)]="maxVal"></td>
+                    </tr>
+                </table>
+                <button type="submit" class="btn btn-black" (click)="filterByPrice()"
+                    [disabled]="maxVal && minVal && maxVal < minVal">Apply</button>
+            </div>
+        </div>
+        <div class="put-price" (mouseup)="showTemplateRating = true">
+            Sort by <b #choose_template_rating_button>Rating</b> <img src="../../../assets/images/arrow.png"
+                height="20">
+            <div class="dropdown-sorting" *ngIf="showTemplateRating" #choose_template_rating_section>
+                <button (click)="sortByRating('asc')">Sort asc</button>
+                <button (click)="sortByRating('desc')">Sort desc</button>
+            </div>
+        </div>
+        <div class="put-price" (mouseup)="showTemplateDate = true">
+            Sort by <b #choose_template_date_button>Date</b> <img src="../../../assets/images/arrow.png" height="20">
+            <div class="dropdown-sorting" *ngIf="showTemplateDate" #choose_template_date_section>
+                <button (click)="sortByDate('asc')">Sort asc</button>
+                <button (click)="sortByDate('desc')">Sort desc</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="way">
+    <p><span class="element" (click)="goToHome()">Home</span>
+        <span (click)="goToCategory()"><img src="../../assets/images/arrow.png"> <img> <span
+                class="element">{{category}}</span></span>
+        <span *ngIf="subcategory"><img src="../../assets/images/arrow.png"> <span
+                class="element">{{subcategory}}</span></span>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-lg-3">
+        <div *ngIf="!subcategory" class="subcategory-filters">
+            <!-- <div *ngIf="userRole == 'admin'" class="for-subcat" style="background-color: rgba(141, 236, 180, 1);"
+                (click)="goToSubcategory('no-subcategory')">
+                <h6>No subcategory</h6>
+                <img src="../../assets/images/arrow.png" height="20">
+            </div> -->
+            <div *ngFor="let subcat of subcategories" class="for-subcat"
+                (click)="goToSubcategory(subcat.name.toLowerCase())">
+                <h6>{{subcat.name}}</h6>
+                <img src="../../assets/images/arrow.png" height="20">
+            </div>
+
+        </div>
+        <form>
+
+        </form>
+    </div>
+    <div class="col-lg-9 row">
+        <div class="coll product-card" *ngFor="let product of products" (click)="goToProduct(product.id)">
+            <img [src]="getFirstColorUrl(product.imageColors)" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{product.price}} MDL</h5>
+                <p class="card-text">{{getLessText(product.description)}}</p>
+                <div style="display: flex">
+                    <div>
+                        <div class="ratings">
+                            <div class="empty-stars"></div>
+                            <div class="full-stars" [style.width]="product.rating*100/5 + '%'"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="raters">/ {{product.numberRaters}}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="products.length == 0" class="no-products">
+            <h4>Sorry there are not any products here!</h4>
+        </div>
+    </div>
+</div>

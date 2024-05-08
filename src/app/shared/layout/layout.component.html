@@ -1,0 +1,104 @@
+<div class="container">
+    <header class="container-element">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" routerLink="/home">Lamosa</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" routerLink="/home">Home</a>
+                        </li>
+                        <li class="nav-item store" (mouseenter)="showDropdown = true"
+                            (click)="showDropdown = !showDropdown">
+                            <a class="nav-link">Store
+                                <img [ngClass]="showDropdown ? 'show' : 'hide'" src="../../../assets/images/arrow.png"
+                                    height="20"></a>
+                        </li>
+                        <li class="nav-item" *ngIf="user && user.role == 'admin'">
+                            <button type="button" class="btn btn-dark" style="color: black"
+                                (click)="createProduct()">Add Product</button>
+                        </li>
+                    </ul>
+                    <div class="left-data d-flex" *ngIf="user && user.id == undefined">
+                        <a class="nav-link" routerLinkActive="active" routerLink="/auth">Sign in</a>
+                    </div>
+                    <div class="left-data d-flex" *ngIf="user && user.id != undefined">
+                        <a class="nav-link" routerLinkActive="active" routerLink="/profile">{{user.fullName}}</a>
+                    </div>
+                    <div class="left-data nav-item" *ngIf="user && user.role != 'admin'">
+                        <a class="nav-link cart-link" routerLinkActive="active" routerLink="/cart">Cart 
+                            <span class="number-cart"
+                                *ngIf="cart.length > 0">
+                                {{cart.length}}
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="store-dropdown" *ngIf="showDropdown"
+        (mouseleave)="showDropdown = false; showCategoryForm = false; selectedCategory = ''">
+        <div class="button-edit">
+            <button class="btn btn-dark m-2" (click)="enterEditMode()" *ngIf="user && user.role == 'admin'">{{ editMode
+                ? 'Exit Edit' : 'Enter Edit'}}</button>
+            <button class="btn btn-dark m-2" (click)="getProductsWthoutCategory()"
+                *ngIf="user && user.role == 'admin'">Products - no category</button>
+            <button class="btn btn-dark m-2" (click)="getProductsWthoutSubcategory()"
+                *ngIf="user && user.role == 'admin'">Products - no subcategory</button>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 mt-3" *ngFor="let category of categories">
+
+                <h5 (click)="editMode ? deleteCategory(category) : navigateToStore(category.category)"
+                    [ngClass]="editMode ? 'red-theme' : 'green-theme'">
+                    {{category.name}}</h5>
+
+                <p *ngFor="let subcat of category.subcategories" [ngClass]="editMode ? 'red-theme' : 'green-theme'"
+                    (click)="editMode ? deleteSubcategory(category, subcat) : navigateTo(category.category, subcat.name)">
+                    {{subcat.name}}</p>
+
+                <div class="col" *ngIf="user && user.role == 'admin' && editMode">
+                    <button class="btn btn-dark" (click)="selectedCategory = category.id"
+                        *ngIf="selectedCategory != category.id">Add subcategory</button>
+                    <form [formGroup]="subcategoryForm" (ngSubmit)="submitSubcategoryForm(category)"
+                        *ngIf="selectedCategory == category.id">
+                        <input class="form-control mt-2" type="text" placeholder="Category name" formControlName="name"
+                            aria-label="default input example">
+                        <button class="btn btn-dark mt-2" tyle="submit"
+                            [disabled]="subcategoryForm.invalid">Add</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-3  mt-3" *ngIf="user && user.role == 'admin' && editMode">
+                <div *ngIf="!showCategoryForm">
+                    <button class="btn btn-dark" (click)="showFormCategory()">Add
+                        category</button>
+                </div>
+                <form [formGroup]="form" (ngSubmit)="submitForm()" *ngIf="showCategoryForm">
+                    <input class="form-control mt-2" type="text" placeholder="Category name" formControlName="name"
+                        aria-label="default input example">
+                    <input class="form-control mt-2" type="text" placeholder="Route path" formControlName="path"
+                        aria-label="default input example">
+                    <button class="btn btn-dark mt-2" tyle="submit" [disabled]="form.invalid">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="edit-category">
+        <button class="btn">Cancel</button>
+        <button class="btn">Go to page</button>
+        <button class="btn">Delete</button>
+    </div> -->
+
+    <div class="container-element mt-4" style="padding: 10px;">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>

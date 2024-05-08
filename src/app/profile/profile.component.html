@@ -1,0 +1,25 @@
+<div class="row mt-4 mb-4">
+    <div class="col profile" style="text-align: center;">
+        <div class=" profile-image">
+            <img *ngIf="user.image == ''" src="../../assets/images/users/no-image.jpg" height="300">
+            <img *ngIf="user.image != ''" [src]="user.image" height="300">
+        </div>
+        <div *ngIf="editImageMode">
+            <label for="file" style="cursor: pointer;margin-top: auto;">Select image</label>
+            <input type="file" id="file" (change)="convertToBase64($event)" accept="image/*">
+            <div class="buttons-change">
+                <button class="btn mt-2" (click)="cancel()">Cancel</button>
+                <button class="btn mt-2" (click)="saveImage()">Save image</button>
+            </div>
+
+        </div>
+
+        <button class="btn mt-2" (click)="editImageMode = true;" *ngIf="!editImageMode">Change image profile</button>
+
+    </div>
+    <div class="col">
+        <h3>{{user.fullName}}</h3>
+        <p>Username: {{user.username}}</p>
+        <button type="button" class="btn btn-dark mt-4" (click)="logout()">Logout</button>
+    </div>
+</div>

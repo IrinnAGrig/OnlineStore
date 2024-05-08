@@ -1,0 +1,44 @@
+<h4>Shopping cart</h4>
+<div class=" cart">
+    <div class="items">
+        <div class="item side all">
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" [checked]="areAllSelected()"
+                (click)="selectAll()">
+            <div style="display: flex;justify-content: space-between;">
+                <label for="vehicle1" style="display: flex;">Select all</label>
+                <p style="margin-bottom: 0;margin-left: 300px;cursor: pointer;" (click)="removeAll()">Remove all
+                    selected</p>
+            </div>
+        </div>
+        <div *ngFor="let item of cartProducts" class="item side">
+            <input type="checkbox" id="{{item.idProduct}}" [checked]="item.checked"
+                (click)="item.checked = !item.checked; selectProduct(item)">
+            <label for="{{item.idProduct}}" style="display: flex;"
+                (click)="item.checked = !item.checked; selectProduct(item)"> </label>
+            <div class="side">
+                <img [src]="item.image" alt="No PHOTO" height="100">
+            </div>
+            <div class="side">
+                <p>{{item.name}}</p>
+                <span style="color: gray;">{{item.type}}</span>
+                <div class="counter">
+                    <div class="circle" (click)="setQuantity('m', item)"> - </div>
+                    <span>{{item.cuantity}}</span>
+                    <div class="circle" (click)="setQuantity('p', item)"> + </div>
+                    <div style="margin-left: 20px; cursor: pointer;" (click)="removeItem(item)"><img
+                            src="../../assets/images/delete-icon.png" height="20"></div>
+                </div>
+            </div>
+            <div class="side">
+                <h6>{{item.price}} MDL</h6>
+            </div>
+        </div>
+    </div>
+    <div class="summary">
+        <h3>Summary</h3>
+        <h3 *ngIf="getTotalSum() != '0.00' ">Total: {{getTotalSum()}} MDL</h3>
+        <button class="btn mb-4" (click)="getTotalSum() == '0.00' ? '' : SavePDF()">{{ getTotalSum() == '0.00' ?
+            'Buy':'Buy for ' + getTotalSum() + '
+            MDL'}}</button>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+npx json-server src/assets/data/products.json
+npx json-server --watch src/assets/data/products.json src/assets/data/users.json
+
+
+npx json-server --watch src/assets/data/index.js --port 3000
