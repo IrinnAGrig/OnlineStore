@@ -17,28 +17,27 @@ Features:
 
 # OnlineStore
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+Angular 15
 
-## Development server
+# Images
+Home page
+![Screenshot 2024-05-24 153548](https://github.com/IrinnAGrig/OnlineStore/assets/98234061/b787ef80-6ab9-42d5-b2f2-6dc5565a4009)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Store page for women
+![Screenshot 2024-05-24 153613](https://github.com/IrinnAGrig/OnlineStore/assets/98234061/67de6e71-8355-4257-ad5a-4eb60255a61f)
 
-## Code scaffolding
+Product details
+![Screenshot 2024-05-24 153659](https://github.com/IrinnAGrig/OnlineStore/assets/98234061/dd111543-2633-4b9e-89c8-411492bf5047)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Cart page
+![Screenshot 2024-05-24 153914](https://github.com/IrinnAGrig/OnlineStore/assets/98234061/70f7d923-d28f-4eca-b522-18a4780bf083)
 
-## Build
+Downloaded pdf when click on Buy
+![Screenshot 2024-05-24 153933](https://github.com/IrinnAGrig/OnlineStore/assets/98234061/64041935-c802-482f-baa7-ce29c42e0fca)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Admin page 
+![Screenshot 2024-05-24 154229](https://github.com/IrinnAGrig/OnlineStore/assets/98234061/a7059df9-4c73-4c46-b26e-9aa73a0cddef)
 
-## Running unit tests
+Add product and same form for edit
+![image](https://github.com/IrinnAGrig/OnlineStore/assets/98234061/99bd0c3e-ea90-4ea8-b668-12a7e3979b33)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
